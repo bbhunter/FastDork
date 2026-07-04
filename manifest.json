@@ -1,32 +1,50 @@
 {
-    "manifest_version": 2,
-
-    "name": "FastDork",
-    "description": "Google and Github Dork tool",
-    "version": "0.1",
-    "author": "skvndr",
-    "icons": {
-        "16": "img/icon.png",
-        "48": "img/icon.png",
-        "128": "img/icon.png"
+  "manifest_version": 3,
+  "name": "FastDork v0.21",
+  "description": "Dork runner and result importer for search engines and custom sites.",
+  "version": "0.21",
+  "author": "skvndr",
+  "icons": {
+    "16": "img/icon16.png",
+    "19": "img/icon19.png",
+    "24": "img/icon24.png",
+    "32": "img/icon32.png",
+    "38": "img/icon38.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "background": {
+    "service_worker": "Script/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_icon": {
+      "16": "img/icon16.png",
+      "19": "img/icon19.png",
+      "24": "img/icon24.png",
+      "32": "img/icon32.png",
+      "38": "img/icon38.png",
+      "48": "img/icon48.png",
+      "128": "img/icon128.png"
     },
-
-    "background": {
-        "scripts": [
-            "Script/jquery-3.5.1.min.js",
-            "Script/FastDork.js"
-        ],
-        "persistent": false
-    },
-
-    "browser_action": {
-        "default_icon": "img/icon.png",
-        "default_popup": "FastDork.html",
-        "default_title": "FastDork"
-    },
-
-    "permissions": [
-        "activeTab",
-        "clipboardRead"
-    ]
+    "default_popup": "FastDork.html",
+    "default_title": "FastDork"
+  },
+  "side_panel": {
+    "default_path": "FastDork.html"
+  },
+  "permissions": [
+    "activeTab",
+    "clipboardRead",
+    "storage",
+    "scripting",
+    "tabs",
+    "sidePanel"
+  ],
+  "host_permissions": [
+    "*://*.google.com/*",
+    "*://*.github.com/*",
+    "*://*.duckduckgo.com/*",
+    "*://*.bing.com/*"
+  ]
 }

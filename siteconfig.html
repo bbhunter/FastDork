@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="site-config-root">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Site Configuration - FastDork</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="site-config-page">
+    <div class="config-container">
+      <div class="site-config-top">
+        <div class="logo-container">
+          <img src="img/icon.png" alt="FastDork Logo" />
+        </div>
+        <div class="site-config-title-group">
+          <h3 id="modalTitle">Configuration</h3>
+          <span class="site-config-kicker">FastDork site selector</span>
+        </div>
+      </div>
+
+      <p class="modal-error"></p>
+
+      <form id="siteConfigForm" onsubmit="return false;">
+        <input type="hidden" id="siteConfigHiddenDomain" />
+
+        <label for="siteDomainInput">Domain:</label>
+        <input
+          type="text"
+          id="siteDomainInput"
+          placeholder="example.com"
+          required
+        />
+        <span class="helper-text manifest-permission-note">
+          New domain? Add it to <code>host_permissions</code> in
+          <code>manifest.json</code> around line 44, then reload the extension.
+        </span>
+
+        <label class="checkbox-label" for="siteUseInSearchEngine">
+          <input type="checkbox" id="siteUseInSearchEngine" />
+          Use as Search Engine (in first tab)?
+        </label>
+        <i class="helper-text"
+          >If checked, this config appears in the 'Search Engine' dropdown and
+          uses the Base URL for searches & import matching. If unchecked, use
+          URL patterns below for import matching.</i
+        >
+
+        <div id="searchEngineFields">
+          <label for="siteBaseUrlInput">Base Search URL:</label>
+          <span class="helper-text"
+            >(Required if 'Use as Search Engine' is checked. E.g.,
+            https://www.google.com/search?q=)</span
+          >
+          <input type="url" id="siteBaseUrlInput" placeholder="https://..." />
+
+          <label for="siteDefaultParamsInput">Default URL Parameters:</label>
+          <span class="helper-text"
+            >(Optional parameters appended to the Base URL. E.g., &filter=0 or
+            &type=Code)</span
+          >
+          <input
+            type="text"
+            id="siteDefaultParamsInput"
+            placeholder="&param=value"
+          />
+        </div>
+
+        <label for="siteLinkSelectorInput">Link Selector(s):</label>
+        <span class="helper-text"
+          >(Required. CSS Selector(s) to find the links/data to extract,
+          comma-separated.)</span
+        >
+        <textarea
+          id="siteLinkSelectorInput"
+          placeholder=".result a, #links > a"
+          required
+          rows="3"
+        ></textarea>
+
+        <label for="siteNextPageSelectorInput">Next Page Selector(s):</label>
+        <span class="helper-text"
+          >(Optional. CSS Selector(s) for the 'Next' button for pagination,
+          comma-separated.)</span
+        >
+        <input
+          type="text"
+          id="siteNextPageSelectorInput"
+          placeholder="a.next, #pagination .next"
+        />
+
+        <label for="siteDataTypeInput">Data Type to Extract:</label>
+        <span class="helper-text"
+          >(Specify whether to extract the link URL ('href') or the visible text
+          ('innerText').)</span
+        >
+        <select id="siteDataTypeInput">
+          <option value="href">Link (href)</option>
+          <option value="innerText">Text (innerText)</option>
+        </select>
+
+        <div id="matchPatternsFields">
+          <label for="siteMatchPatterns"
+            >URL Match Pattern(s) for Import:</label
+          >
+          <span class="helper-text"
+            >(Used for 'Import' button if not a Search Engine. One simple text
+            pattern per line. E.g., `hackerone.com/reports/`,
+            `exploit-db.com/search`)</span
+          >
+          <textarea
+            id="siteMatchPatterns"
+            placeholder="https://example.com/results?*&#10;/specific/path/"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div id="captchaDetectionFields">
+          <label for="siteCaptchaUrlPatterns">CAPTCHA URL Pattern(s):</label>
+          <span class="helper-text"
+            >(Optional. One URL substring per line. If the page URL contains one
+            of these patterns, FastDork pauses import as CAPTCHA-blocked.)</span
+          >
+          <textarea
+            id="siteCaptchaUrlPatterns"
+            placeholder="/turing/captcha&#10;/captcha"
+            rows="2"
+          ></textarea>
+
+          <label for="siteCaptchaTextPatterns">CAPTCHA Text Pattern(s):</label>
+          <span class="helper-text"
+            >(Optional. One text snippet per line. Matching is
+            case-insensitive and accent-insensitive.)</span
+          >
+          <textarea
+            id="siteCaptchaTextPatterns"
+            placeholder="verify you are human&#10;enter the characters you see"
+            rows="2"
+          ></textarea>
+
+          <label for="siteCaptchaSelectors">CAPTCHA Selector(s):</label>
+          <span class="helper-text"
+            >(Optional. One CSS selector per line for CAPTCHA/challenge
+            elements.)</span
+          >
+          <textarea
+            id="siteCaptchaSelectors"
+            placeholder="iframe[src*=&quot;captcha&quot;]&#10;[id*=&quot;captcha&quot; i]"
+            rows="2"
+          ></textarea>
+        </div>
+      </form>
+
+      <div class="button-group">
+        <button id="btnSaveSiteConfig" class="xs">Save Configuration</button>
+        <button
+          id="btnCloseConfigTab"
+          type="button"
+          class="xs secondary-button"
+        >
+          Cancel / Close
+        </button>
+        <button
+          id="btnDeleteSiteConfigModal"
+          type="button"
+          class="xs danger-button"
+        >
+          Delete/Reset
+        </button>
+      </div>
+    </div>
+<script src="Script/siteconfig.js"></script>
+  </body>
+</html>
